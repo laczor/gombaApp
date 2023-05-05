@@ -5,7 +5,7 @@ export function AddLocationsMenu({menuElement, openModal, map}) {
         <div data-testid="menu-dropdown" class="dropdown">
             <div class="dropdown-trigger">
                 <button data-testid="menu-trigger" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span>Dropdown button</span>
+                    <span>Opciók</span>
                     <span class="icon is-small">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"></path>
@@ -20,6 +20,9 @@ export function AddLocationsMenu({menuElement, openModal, map}) {
                 </a>
                 <a data-testid="custom-location" class="dropdown-item">
                 Kijelölöm a térképen
+                </a>
+                <a data-testid="custom-location" class="dropdown-item">
+                Szerkesztem a térképen
                 </a>
             </div>
         </div>

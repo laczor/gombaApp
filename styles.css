@@ -10,7 +10,7 @@ html, body, #map {
 .add-locations{
     position: fixed;
     top: 15px;
-    right: 15px;
+    right: 100px;
     z-index: 1000;
 }
 

@@ -52,9 +52,15 @@
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
-    function addMarker({lat,lng, name}) {
+    function addMarker({lat,lng, name, id}) {
         var marker = L.marker([lat, lng]).addTo(map);
+        console.log(marker)
         marker.bindPopup(`${name}`);
+        marker.location_id = id;
+        marker.on('click', function(e) {
+            // Access the clicked marker using the target property of the event object
+            const clickedMarker = e.target;
+        });
     }
 
     const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker });
