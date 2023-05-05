@@ -11,31 +11,11 @@
 </head>
 <body>
     <div class="add-locations">
-        <button class="add-current-location">Current loc</button>
+        <button class="add-current-location" onclick="openModal(ADD_CURRENT_LOCATION_MODAL)">Current loc</button>
         <!-- <button class="add-custom-location">Custom loc</button> -->
     </div>
-    <dialog class="add-current-location-modal modal">
-            <div class="modal-card">
-              <header class="modal-card-head">
-                <p class="modal-card-title">Mentsd el ahol vagy</p>
-                <button class="delete" onclick="closeModal()" aria-label="close"></button>
-              </header>
-              <section class="modal-card-body">
-
-                <div class="field">
-                    <label class="label">Gomba neve</label>
-                    <div class="control">
-                      <input class="input add-current-location-modal_input" type="text" placeholder="Text input">
-                    </div>
-                </div>
-                <!-- Content ... -->
-              </section>
-              <footer class="modal-card-foot">
-                <button class="button is-success" onclick="saveLocation()">Mentés</button>
-                <button class="button" onclick="closeModal()">Bezárás</button>
-              </footer>
-            </div>
-    </dialog>
+    <dialog class="add-current-location-modal modal"></dialog>
+    <div class="testing"></div>
     <div id="map"></div>
 
 </body>
@@ -55,7 +35,10 @@
 <script>
     const ADD_CURRENT_LOCATION_BUTTON = document.querySelector('.add-current-location');
     const ADD_CURRENT_LOCATION_MODAL = document.querySelector('.add-current-location-modal');
-    const ADD_CURRENT_LOCATION_MODAL_INPUT = document.querySelector('.add-current-location-modal_input');
+
+    const test = document.querySelector('.testing');
+    let hello = 'mondjad mi van!';
+    test.innerHTML = `<div>${hello}</div>`
 
 </script>
 
@@ -66,40 +49,30 @@
     import { Map } from 'map';
     import { Location } from 'domain';
 
+    import { SaveLocationModal } from './components/save-location-form.js'
+
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
+    SaveLocationModal({ api, map }).render(ADD_CURRENT_LOCATION_MODAL);
     // api.getAllLocations().then((locations) => {
     //     console.log('These are the locations');
     //     console.log(locations);
     // });
 
-    ADD_CURRENT_LOCATION_BUTTON.addEventListener('click', () => {
-        console.log(ADD_CURRENT_LOCATION_MODAL)
-        ADD_CURRENT_LOCATION_MODAL.showModal();
-        ADD_CURRENT_LOCATION_MODAL.classList.add('is-active');
-        // let { _lastCenter } = map.locate();
-        // const location = Location({ name:'random', ..._lastCenter });
-        // api.saveLocation(location).then((location) => {
-        //     console.log('success Location saved')
-        // });
-    });
-    // const ADD_CUSTOM_LOCATION_BUTTON = document.querySelector('.add-custom-location');
-    // ADD_CUSTOM_LOCATION_BUTTON.addEventListener('click', () => {
-    //     let { _lastCenter } = map.locate();
-    //     const location = Location({ name:'random', ..._lastCenter });
-    //     api.saveLocation(location).then((location) => {
-    //         console.log('success Location saved')
-    //     });
-    // });
-
-    function closeModal(params) {
-        ADD_CURRENT_LOCATION_MODAL.classList.remove('is-active');
-        ADD_CURRENT_LOCATION_MODAL.close()
+    function closeModal(modalElement) {
+        modalElement.classList.remove('is-active');
+        modalElement.close()
     }
 
-    function saveLocation() {
-        const name = ADD_CURRENT_LOCATION_MODAL_INPUT.value;
+    function openModal(modalElement) {
+        modalElement.showModal();
+        modalElement.classList.add('is-active');
+    }
+
+    function saveLocation({ name }) {
+        console.log('saving', name);
+        console.log('ADD_CURRENT_LOCATION_MODAL_INPUT', ADD_CURRENT_LOCATION_MODAL_INPUT);
         let { _lastCenter } = map.locate();
         const location = Location({ name, ..._lastCenter });
         api.saveLocation(location).then((location) => {
@@ -109,6 +82,7 @@
 
     window.closeModal = closeModal;
     window.saveLocation = saveLocation;
+    window.openModal = openModal;
 
 
     map.on('click', function(e) {
