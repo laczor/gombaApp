@@ -14,25 +14,25 @@
         <button class="add-current-location">Current loc</button>
         <!-- <button class="add-custom-location">Custom loc</button> -->
     </div>
-    <dialog class="add-location-modal modal">
+    <dialog class="add-current-location-modal modal">
             <div class="modal-card">
               <header class="modal-card-head">
-                <p class="modal-card-title">Save Current Location</p>
+                <p class="modal-card-title">Mentsd el ahol vagy</p>
                 <button class="delete" onclick="closeModal()" aria-label="close"></button>
               </header>
               <section class="modal-card-body">
 
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Gomba neve</label>
                     <div class="control">
-                      <input class="input" type="text" placeholder="Text input">
+                      <input class="input add-current-location-modal_input" type="text" placeholder="Text input">
                     </div>
                 </div>
                 <!-- Content ... -->
               </section>
               <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button" onclick="closeModal()">Cancel</button>
+                <button class="button is-success" onclick="saveLocation()">Mentés</button>
+                <button class="button" onclick="closeModal()">Bezárás</button>
               </footer>
             </div>
     </dialog>
@@ -54,13 +54,9 @@
 
 <script>
     const ADD_CURRENT_LOCATION_BUTTON = document.querySelector('.add-current-location');
-    const ADD_LOCATION_MODAL = document.querySelector('.add-location-modal');
-    function closeModal(params) {
-        console.log('closing')
-        ADD_LOCATION_MODAL.classList.remove('is-active');
-        ADD_LOCATION_MODAL.close()
+    const ADD_CURRENT_LOCATION_MODAL = document.querySelector('.add-current-location-modal');
+    const ADD_CURRENT_LOCATION_MODAL_INPUT = document.querySelector('.add-current-location-modal_input');
 
-    }
 </script>
 
 
@@ -79,9 +75,9 @@
     // });
 
     ADD_CURRENT_LOCATION_BUTTON.addEventListener('click', () => {
-        console.log(ADD_LOCATION_MODAL)
-        ADD_LOCATION_MODAL.showModal();
-        ADD_LOCATION_MODAL.classList.add('is-active');
+        console.log(ADD_CURRENT_LOCATION_MODAL)
+        ADD_CURRENT_LOCATION_MODAL.showModal();
+        ADD_CURRENT_LOCATION_MODAL.classList.add('is-active');
         // let { _lastCenter } = map.locate();
         // const location = Location({ name:'random', ..._lastCenter });
         // api.saveLocation(location).then((location) => {
@@ -98,8 +94,22 @@
     // });
 
     function closeModal(params) {
-        ADD_LOCATION_MODAL.close();
+        ADD_CURRENT_LOCATION_MODAL.classList.remove('is-active');
+        ADD_CURRENT_LOCATION_MODAL.close()
     }
+
+    function saveLocation() {
+        const name = ADD_CURRENT_LOCATION_MODAL_INPUT.value;
+        let { _lastCenter } = map.locate();
+        const location = Location({ name, ..._lastCenter });
+        api.saveLocation(location).then((location) => {
+            console.log('success Location saved')
+        });
+    }
+
+    window.closeModal = closeModal;
+    window.saveLocation = saveLocation;
+
 
     map.on('click', function(e) {
     // create a custom marker at the clicked location
