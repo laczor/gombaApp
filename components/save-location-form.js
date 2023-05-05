@@ -1,9 +1,11 @@
-export function SaveLocationModal({ api, map}) {
+import { Location } from "domain";
+
+export function SaveLocationModal({ api, map, modalElement}) {
     const template = /*html*/`
-            <div class="modal-card">
+        <div class="modal-card">
             <header class="modal-card-head">
             <p class="modal-card-title">Mentsd el ahol vagy</p>
-            <button class="delete" onclick="closeModal(ADD_CURRENT_LOCATION_MODAL)" aria-label="close"></button>
+            <button data-testid="close" class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
 
@@ -16,18 +18,35 @@ export function SaveLocationModal({ api, map}) {
             <!-- Content ... -->
             </section>
             <footer class="modal-card-foot">
-            <button class="button is-success" onclick="saveLocation({ name: ADD_CURRENT_LOCATION_MODAL_INPUT.value })">Mentés</button>
-            <button class="button" onclick="closeModal(ADD_CURRENT_LOCATION_MODAL)">Bezárás</button>
+            <button data-testid="save-location" class="button is-success">Mentés</button>
+            <button data-testid="close" class="button">Bezárás</button>
             </footer>
         </div>
     `
 
-    function render(element){
-        element.innerHTML = template;
-        window.ADD_CURRENT_LOCATION_MODAL_INPUT = element.querySelector('.add-current-location-modal_input');
-        return element;
+    function saveLocation() {
+        let name = modalElement.querySelector('.add-current-location-modal_input').value
+        let { _lastCenter } = map.locate();
+        const location = Location({ name, ..._lastCenter });
+        console.log(location)
+        api.saveLocation(location).then((location) => {
+            modalElement.close();
+        });
     }
 
+    function closeModal() {
+        modalElement.classList.remove('is-active');
+        modalElement.close()
+    }
+
+    function render(){
+        modalElement.innerHTML = template;
+        modalElement.querySelector("[data-testid='save-location']").addEventListener('click', saveLocation);
+        modalElement.querySelectorAll("[data-testid='close']").forEach((element) => {
+            element.addEventListener('click', closeModal);
+        })
+        return modalElement;
+    }
 
     return {
         render,

@@ -14,7 +14,7 @@
         <button class="add-current-location" onclick="openModal(ADD_CURRENT_LOCATION_MODAL)">Current loc</button>
         <!-- <button class="add-custom-location">Custom loc</button> -->
     </div>
-    <dialog class="add-current-location-modal modal"></dialog>
+    <dialog data-testid="add-current-location-modal" class="modal"></dialog>
     <div class="testing"></div>
     <div id="map"></div>
 
@@ -34,7 +34,7 @@
 
 <script>
     const ADD_CURRENT_LOCATION_BUTTON = document.querySelector('.add-current-location');
-    const ADD_CURRENT_LOCATION_MODAL = document.querySelector('.add-current-location-modal');
+    const ADD_CURRENT_LOCATION_MODAL = document.querySelector("[data-testid='add-current-location-modal']");
 
     const test = document.querySelector('.testing');
     let hello = 'mondjad mi van!';
@@ -54,34 +54,17 @@
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
-    SaveLocationModal({ api, map }).render(ADD_CURRENT_LOCATION_MODAL);
+    const form = SaveLocationModal({ api, map, modalElement: ADD_CURRENT_LOCATION_MODAL }).render();
     // api.getAllLocations().then((locations) => {
     //     console.log('These are the locations');
     //     console.log(locations);
     // });
-
-    function closeModal(modalElement) {
-        modalElement.classList.remove('is-active');
-        modalElement.close()
-    }
 
     function openModal(modalElement) {
         modalElement.showModal();
         modalElement.classList.add('is-active');
     }
 
-    function saveLocation({ name }) {
-        console.log('saving', name);
-        console.log('ADD_CURRENT_LOCATION_MODAL_INPUT', ADD_CURRENT_LOCATION_MODAL_INPUT);
-        let { _lastCenter } = map.locate();
-        const location = Location({ name, ..._lastCenter });
-        api.saveLocation(location).then((location) => {
-            console.log('success Location saved')
-        });
-    }
-
-    window.closeModal = closeModal;
-    window.saveLocation = saveLocation;
     window.openModal = openModal;
 
 
