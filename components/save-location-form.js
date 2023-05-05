@@ -1,6 +1,9 @@
 import { Location } from "domain";
 
-export function SaveLocationModal({ api, map, modalElement}) {
+export function SaveLocationModal({ api, modalElement}) {
+    let coordinates;
+    let before_close;
+
     const template = /*html*/`
         <div class="modal-card">
             <header class="modal-card-head">
@@ -26,16 +29,25 @@ export function SaveLocationModal({ api, map, modalElement}) {
 
     function saveLocation() {
         let name = modalElement.querySelector('.add-current-location-modal_input').value
-        let { _lastCenter } = map.locate();
-        const location = Location({ name, ..._lastCenter });
+        const location = Location({ name, ...coordinates });
         console.log(location)
         api.saveLocation(location).then((location) => {
             modalElement.close();
         });
     }
 
+    function openModal({coordinatesData, before_closeFn}) {
+        coordinates = coordinatesData;
+        before_close = before_closeFn;
+        console.log(before_close)
+        modalElement.showModal();
+        modalElement.classList.add('is-active');
+    }
+
     function closeModal() {
         modalElement.classList.remove('is-active');
+        console.log(before_close);
+        if(typeof before_close == 'function') before_close();
         modalElement.close()
     }
 
@@ -50,6 +62,7 @@ export function SaveLocationModal({ api, map, modalElement}) {
 
     return {
         render,
+        openModal,
     }
 }
 
