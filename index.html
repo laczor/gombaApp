@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="add-locations">
+        <button class="add-current-location">Current loc</button>
+        <!-- <button class="add-custom-location">Custom loc</button> -->
+    </div>
+    <dialog class="add-location-modal modal">
+            <div class="modal-card">
+              <header class="modal-card-head">
+                <p class="modal-card-title">Save Current Location</p>
+                <button class="delete" onclick="closeModal()" aria-label="close"></button>
+              </header>
+              <section class="modal-card-body">
+
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                      <input class="input" type="text" placeholder="Text input">
+                    </div>
+                </div>
+                <!-- Content ... -->
+              </section>
+              <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button" onclick="closeModal()">Cancel</button>
+              </footer>
+            </div>
+    </dialog>
+    <div id="map"></div>
+
+</body>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+<script type="importmap">
+    {
+      "imports": {
+        "db": "./db.js",
+        "api": "./api.js",
+        "map": "./map.js",
+        "domain": "./domain.js"
+      }
+    }
+</script>
+
+<script>
+    const ADD_CURRENT_LOCATION_BUTTON = document.querySelector('.add-current-location');
+    const ADD_LOCATION_MODAL = document.querySelector('.add-location-modal');
+    function closeModal(params) {
+        console.log('closing')
+        ADD_LOCATION_MODAL.classList.remove('is-active');
+        ADD_LOCATION_MODAL.close()
+
+    }
+</script>
+
+
+<script type="module">
+    import { dbPromise, LOCATIONS_VERSION } from 'db'
+    import { Api } from 'api';
+    import { Map } from 'map';
+    import { Location } from 'domain';
+
+    const api = Api(dbPromise);
+    const { map } = Map(L);
+    map.markInitialLocation();
+    // api.getAllLocations().then((locations) => {
+    //     console.log('These are the locations');
+    //     console.log(locations);
+    // });
+
+    ADD_CURRENT_LOCATION_BUTTON.addEventListener('click', () => {
+        console.log(ADD_LOCATION_MODAL)
+        ADD_LOCATION_MODAL.showModal();
+        ADD_LOCATION_MODAL.classList.add('is-active');
+        // let { _lastCenter } = map.locate();
+        // const location = Location({ name:'random', ..._lastCenter });
+        // api.saveLocation(location).then((location) => {
+        //     console.log('success Location saved')
+        // });
+    });
+    // const ADD_CUSTOM_LOCATION_BUTTON = document.querySelector('.add-custom-location');
+    // ADD_CUSTOM_LOCATION_BUTTON.addEventListener('click', () => {
+    //     let { _lastCenter } = map.locate();
+    //     const location = Location({ name:'random', ..._lastCenter });
+    //     api.saveLocation(location).then((location) => {
+    //         console.log('success Location saved')
+    //     });
+    // });
+
+    function closeModal(params) {
+        ADD_LOCATION_MODAL.close();
+    }
+
+    map.on('click', function(e) {
+    // create a custom marker at the clicked location
+        const marker = L.marker(e.latlng).addTo(map);
+    });
+
+</script>
+
+
+
+</html>

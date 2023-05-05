@@ -1,0 +1,68 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+html, body, #map {
+    height: 100%;
+    width: 100vw;
+}
+
+.add-locations{
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+}
+
+dialog[open] {
+    display: block;
+    position: fixed;
+    top: 10%;
+    left: 0;
+    width: 80%;
+    height: 50%;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 20px;
+    background-color: #dddddd;
+    box-shadow: 0 0 0 50vmax rgba(0,0,0,.5);
+    border: 1px solid black;
+}
+
+.close-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: #aaa;
+}
+
+.close-button:after {
+    content: "×";
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+
+/* Modal Overrides */
+
+.modal.is-active {
+    padding: 0px;
+}
+
+.modal-card{
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+}
