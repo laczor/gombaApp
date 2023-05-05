@@ -52,13 +52,19 @@
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
-    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL });
+    function addMarker({lat,lng, name}) {
+        var marker = L.marker([lat, lng]).addTo(map);
+        marker.bindPopup(`${name}`);
+    }
+
+    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker });
     saveLocationModal.render();
+
     AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map }).render();
-    // api.getAllLocations().then((locations) => {
-    //     console.log('These are the locations');
-    //     console.log(locations);
-    // });
+
+    api.getAllLocations().then((locations) => {
+            locations.map(addMarker);
+    });
 
 </script>
 

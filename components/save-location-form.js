@@ -1,6 +1,6 @@
 import { Location } from "domain";
 
-export function SaveLocationModal({ api, modalElement}) {
+export function SaveLocationModal({ api, modalElement, addMarker}) {
     let coordinates;
     let before_close;
 
@@ -32,6 +32,7 @@ export function SaveLocationModal({ api, modalElement}) {
         const location = Location({ name, ...coordinates });
         console.log(location)
         api.saveLocation(location).then((location) => {
+            addMarker(location);
             modalElement.close();
         });
     }
