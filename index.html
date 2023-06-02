@@ -48,16 +48,13 @@
     import { AddLocationsMenu } from './components/add-locations-menu.js'
 
 
-    window.deleteMarker = (id) => {
-        console.log(id)
-    }
+
 
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
     const markers = Markers({ api, map })
-    console.log(markers)
-
+    window.deleteMarker = markers.deleteMarker;
 
     const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker });
     saveLocationModal.render();
