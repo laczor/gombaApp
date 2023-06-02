@@ -14,3 +14,6 @@
 
 7. Add different icons, as poc.
 8. Add a dropdown for the images.
+9. Inline third party
+10. Hash the resources so it can be downloaded if they are changed.
+11. Make it offline friendly.

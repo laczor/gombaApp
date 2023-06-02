@@ -24,6 +24,7 @@
         "db": "./db.js",
         "api": "./api.js",
         "map": "./map.js",
+        "markers": "./markers.js",
         "domain": "./domain.js"
       }
     }
@@ -33,10 +34,6 @@
     const ADD_CURRENT_LOCATION_MODAL = document.querySelector("[data-testid='add-current-location-modal']");
     const ADD_LOCATIONS_MENU = document.querySelector("[data-testid='add-locations-menu']");
 
-    const test = document.querySelector('.testing');
-    let hello = 'mondjad mi van!';
-    test.innerHTML = `<div>${hello}</div>`
-
 </script>
 
 
@@ -45,31 +42,30 @@
     import { Api } from 'api';
     import { Map } from 'map';
     import { Location } from 'domain';
+    import { Markers } from 'markers';
 
     import { SaveLocationModal } from './components/save-location-form.js'
     import { AddLocationsMenu } from './components/add-locations-menu.js'
 
+
+    window.deleteMarker = (id) => {
+        console.log(id)
+    }
+
     const api = Api(dbPromise);
     const { map } = Map(L);
     map.markInitialLocation();
-    function addMarker({lat,lng, name, id}) {
-        var marker = L.marker([lat, lng]).addTo(map);
-        console.log(marker)
-        marker.bindPopup(`${name}`);
-        marker.location_id = id;
-        marker.on('click', function(e) {
-            // Access the clicked marker using the target property of the event object
-            const clickedMarker = e.target;
-        });
-    }
+    const markers = Markers({ api, map })
+    console.log(markers)
 
-    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker });
+
+    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker });
     saveLocationModal.render();
 
     AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map }).render();
 
     api.getAllLocations().then((locations) => {
-            locations.map(addMarker);
+            locations.map(markers.addMarker);
     });
 
 </script>
