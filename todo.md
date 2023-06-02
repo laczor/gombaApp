@@ -8,6 +8,7 @@
     - Will open a popup for deletion.
     - if yes, will remove the marker and the database entry.
 3. Modify an existing entry.
+    - close popup after successful modification
 4. Export all of the data in a txt file.
 5. Publish it to an online space.
 

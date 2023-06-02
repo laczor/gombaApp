@@ -6,7 +6,11 @@ export function Markers({ api, map }) {
         console.log(marker)
         markers.push(marker);
         marker.location_id = id;
-        marker.bindPopup(`<div>${name}</div><br><button onClick="deleteMarker({id: ${id}, 'name': '${name}'})">Delete</button>`);
+        marker.bindPopup(`
+        <div>${name}</div><br>
+        <button onClick="opeSaveLocationModal({coordinatesData: { lng: ${lng }, lat:${lat} }, name:'${name}', id: ${id}})">Módósít</button><br>
+        <button onClick="deleteMarker({id: ${id}, 'name': '${name}'})">Törlés</button>
+        `);
     }
 
     async function deleteMarker({name, id}) {

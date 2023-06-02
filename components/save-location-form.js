@@ -1,7 +1,8 @@
 import { Location } from "domain";
 
 export function SaveLocationModal({ api, modalElement, addMarker}) {
-    let coordinates;
+    let _coordinates;
+    let _id;
     let before_close;
 
     const template = /*html*/`
@@ -29,7 +30,7 @@ export function SaveLocationModal({ api, modalElement, addMarker}) {
 
     function saveLocation() {
         let name = modalElement.querySelector('.add-current-location-modal_input').value
-        const location = Location({ name, ...coordinates });
+        const location = Location({ name, ..._coordinates, _id });
         console.log(location)
         api.saveLocation(location).then((location) => {
             addMarker(location);
@@ -37,8 +38,10 @@ export function SaveLocationModal({ api, modalElement, addMarker}) {
         });
     }
 
-    function openModal({coordinatesData, before_closeFn}) {
-        coordinates = coordinatesData;
+    function openModal({coordinatesData, before_closeFn, name = '', id = undefined}) {
+        modalElement.querySelector('.add-current-location-modal_input').value = name;
+        _coordinates = coordinatesData;
+        _id = id,
         before_close = before_closeFn;
         console.log(before_close)
         modalElement.showModal();

@@ -54,12 +54,15 @@
     const { map } = Map(L);
     map.markInitialLocation();
     const markers = Markers({ api, map })
-    window.deleteMarker = markers.deleteMarker;
+
 
     const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker });
     saveLocationModal.render();
 
     AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map }).render();
+
+    window.deleteMarker = markers.deleteMarker;
+    window.opeSaveLocationModal = saveLocationModal.openModal;
 
     api.getAllLocations().then((locations) => {
             locations.map(markers.addMarker);
