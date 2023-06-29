@@ -3,7 +3,6 @@ export function Markers({ api, map }) {
 
     function addMarker({lat,lng, name, id}) {
         var marker = L.marker([lat, lng]).addTo(map);
-        console.log(marker)
         markers.push(marker);
         marker.location_id = id;
         marker.bindPopup(`
@@ -14,7 +13,7 @@ export function Markers({ api, map }) {
     }
 
     function closeMarker(id) {
-        const markerIndex = markers.findIndex(marker => { console.log(marker); return marker.location_id === id; });
+        const markerIndex = markers.findIndex(marker => marker.location_id === id);
         if(markerIndex !==-1){
             markers[markerIndex].closePopup();
         }

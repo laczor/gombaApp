@@ -30,11 +30,10 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker}) 
 
     function saveLocation() {
         let name = modalElement.querySelector('.add-current-location-modal_input').value
-        const location = Location({ name, ..._coordinates, _id });
-        console.log(location)
+        const location = Location({ name, ..._coordinates, id: _id });
         api.saveLocation(location).then((location) => {
             addMarker(location);
-            closeMarker(location._id)
+            closeMarker(location.id)
             modalElement.close();
         });
     }
@@ -44,14 +43,12 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker}) 
         _coordinates = coordinatesData;
         _id = id,
         before_close = before_closeFn;
-        console.log(before_close)
         modalElement.showModal();
         modalElement.classList.add('is-active');
     }
 
     function closeModal() {
         modalElement.classList.remove('is-active');
-        console.log(before_close);
         if(typeof before_close == 'function') before_close();
         modalElement.close()
     }

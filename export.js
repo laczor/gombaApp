@@ -22,7 +22,7 @@ export function exportData({ getData }) {
             const currentDate = new Date(Date.now())
             downloadJSON(data, `gomba-helyek-${currentDate.getFullYear()}-${currentDate.getMonth()}-${currentDate.getDay()}`)
         } catch (error) {
-            console.log('Something went wrong', error);
+            alert(error)
         }
     }
 }

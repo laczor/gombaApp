@@ -41,12 +41,13 @@
     import { dbPromise, LOCATIONS_VERSION } from 'db'
     import { Api } from 'api';
     import { Map } from 'map';
-    import { Location } from 'domain';
+    import { Location, isLocation } from 'domain';
     import { Markers } from 'markers';
 
     import { SaveLocationModal } from './components/save-location-form.js'
     import { AddLocationsMenu } from './components/add-locations-menu.js'
     import { exportData } from './export.js'
+    import { importData } from './import.js'
 
     const api = Api(dbPromise);
     const { map } = Map(L);
@@ -57,9 +58,14 @@
     const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker });
     saveLocationModal.render();
 
-    exportData
-
-    AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map, exportData: exportData({ getData: api.getAllLocations}) }).render();
+    AddLocationsMenu(
+        {
+            menuElement: ADD_LOCATIONS_MENU,
+            openModal: saveLocationModal.openModal,
+            map,
+            exportData: exportData({ getData: api.getAllLocations}),
+            importData: importData({saveData: api.saveLocation, validator: isLocation}),
+    }).render();
 
     window.deleteMarker = markers.deleteMarker;
     window.opeSaveLocationModal = saveLocationModal.openModal;
