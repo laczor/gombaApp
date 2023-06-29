@@ -56,7 +56,7 @@
     const markers = Markers({ api, map })
 
 
-    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker });
+    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker });
     saveLocationModal.render();
 
     AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map }).render();

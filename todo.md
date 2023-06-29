@@ -7,10 +7,10 @@
     - It will add an extra deletion button to the markers.
     - Will open a popup for deletion.
     - if yes, will remove the marker and the database entry.
-3. Modify an existing entry.
+3. Modify an existing entry. [.]
     - close popup after successful modification
-4. Export all of the data in a txt file.
-5. Publish it to an online space.
+4. Export/import all of the data in/from a txt file.
+6. Publish it to an online space.
 
 7. Add different icons, as poc.
 8. Add a dropdown for the images.

@@ -13,6 +13,13 @@ export function Markers({ api, map }) {
         `);
     }
 
+    function closeMarker(id) {
+        const markerIndex = markers.findIndex(marker => { console.log(marker); return marker.location_id === id; });
+        if(markerIndex !==-1){
+            markers[markerIndex].closePopup();
+        }
+    }
+
     async function deleteMarker({name, id}) {
 
         let confirmAction = confirm(`Biztos törlöd a következőt? \n ${name}`);
@@ -34,6 +41,7 @@ export function Markers({ api, map }) {
 
     return {
         addMarker,
+        closeMarker,
         deleteMarker,
     }
 
