@@ -10,7 +10,12 @@ function importJSON() {
 
       reader.onload = function() {
         var contents = reader.result;
-        var jsonData = JSON.parse(contents);
+        let jsonData;
+        try {
+          jsonData = JSON.parse(contents);
+        } catch (error) {
+          alert(error);
+        }
         resolve(jsonData);
       };
 
@@ -42,9 +47,17 @@ function importJSON() {
           alert(error)
       }
 
-      // TODO save the locations to the indexedDB, how to handle if it fails in the meantime?
+      let errors =[];
 
+      data.forEach(async (location) => {
+        try {
+          await saveData(location)
+        } catch (error) {
+          errors.push(location);
+        }
+      });
 
-
+      if(errors.length !==0) alert (`These locations have not been saved \n${errors}`)
+      location.reload();
     };
   }

@@ -30,7 +30,8 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker}) 
 
     function saveLocation() {
         let name = modalElement.querySelector('.add-current-location-modal_input').value
-        const location = Location({ name, ..._coordinates, id: _id });
+        const location = Location({ name, ..._coordinates });
+        if(_id) location.id = _id;
         api.saveLocation(location).then((location) => {
             addMarker(location);
             closeMarker(location.id)
