@@ -9,7 +9,8 @@
     - if yes, will remove the marker and the database entry.
 3. Modify an existing entry. [.]
     - close popup after successful modification
-4. Export/import all of the data in/from a txt file.
+4. Export/import all of the data into a json file.
+5. Import everyting from a json file.
 6. Publish it to an online space.
 
 7. Add different icons, as poc.

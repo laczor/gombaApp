@@ -46,9 +46,7 @@
 
     import { SaveLocationModal } from './components/save-location-form.js'
     import { AddLocationsMenu } from './components/add-locations-menu.js'
-
-
-
+    import { exportData } from './export.js'
 
     const api = Api(dbPromise);
     const { map } = Map(L);
@@ -59,7 +57,9 @@
     const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker });
     saveLocationModal.render();
 
-    AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map }).render();
+    exportData
+
+    AddLocationsMenu({ menuElement: ADD_LOCATIONS_MENU, openModal: saveLocationModal.openModal, map, exportData: exportData({ getData: api.getAllLocations}) }).render();
 
     window.deleteMarker = markers.deleteMarker;
     window.opeSaveLocationModal = saveLocationModal.openModal;
