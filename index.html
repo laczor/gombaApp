@@ -20,62 +20,24 @@
 
 <script type="importmap">
     {
-      "imports": {
-        "db": "./db.js",
-        "api": "./api.js",
-        "map": "./map.js",
-        "markers": "./markers.js",
-        "domain": "./domain.js"
-      }
+        "imports": {
+            "db": "./db.js",
+            "api": "./api.js",
+            "map": "./map.js",
+            "markers": "./markers.js",
+            "domain": "./domain.js",
+            "export": "./export.js",
+            "import": "./import.js",
+            "save-location-form": "./components/save-location-form.js",
+            "add-locations-menu": "./components/add-locations-menu.js"
+        }
     }
 </script>
 
 <script>
     const ADD_CURRENT_LOCATION_MODAL = document.querySelector("[data-testid='add-current-location-modal']");
     const ADD_LOCATIONS_MENU = document.querySelector("[data-testid='add-locations-menu']");
-
 </script>
-
-
-<script type="module">
-    import { dbPromise, LOCATIONS_VERSION } from 'db'
-    import { Api } from 'api';
-    import { Map } from 'map';
-    import { Location, isLocation } from 'domain';
-    import { Markers } from 'markers';
-
-    import { SaveLocationModal } from './components/save-location-form.js'
-    import { AddLocationsMenu } from './components/add-locations-menu.js'
-    import { exportData } from './export.js'
-    import { importData } from './import.js'
-
-    const api = Api(dbPromise);
-    const { map } = Map(L);
-    map.markInitialLocation();
-    const markers = Markers({ api, map })
-
-
-    const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker });
-    saveLocationModal.render();
-
-    AddLocationsMenu(
-        {
-            menuElement: ADD_LOCATIONS_MENU,
-            openModal: saveLocationModal.openModal,
-            map,
-            exportData: exportData({ getData: api.getAllLocations}),
-            importData: importData({saveData: api.saveLocation, validator: isLocation}),
-    }).render();
-
-    window.deleteMarker = markers.deleteMarker;
-    window.opeSaveLocationModal = saveLocationModal.openModal;
-
-    api.getAllLocations().then((locations) => {
-            locations.map(markers.addMarker);
-    });
-
-</script>
-
-
+<script type="module" src="index.js"></script>
 
 </html>
