@@ -13,8 +13,10 @@
 5. Import everyting from a json file. [.]
 5.1. Hash the resources so it can be downloaded if   they are changed. [.]
 6. Publish it to an online space. [.]
-7.0. Add filters for name, date.
+7.0. Add filters for name, date. [.]
+7.1 Make it possibe to register mushroom names.
+7.2 Select a combobox different mushroom names
 7. Add different icons, as poc.
-8. Add a dropdown for the images.
+8. Add a possibility to select icons for the different mushrooms.
 9. Inline third party
 10. Make it offline friendly.
