@@ -1,9 +1,11 @@
 export function Location({
     date = Date.now(),
+    month = new Date(Date.now()).getMonth() + 1,
     ...rest
 }){
     return {
-        date: Date.now(),
+        date,
+        month,
         ...rest
     };
 };

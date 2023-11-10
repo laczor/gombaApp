@@ -1,10 +1,13 @@
 export function Markers({ api, map }) {
     let markers = [];
 
-    function addMarker({lat,lng, name, id}) {
+    function addMarker({lat,lng, name, id, date, month}) {
         var marker = L.marker([lat, lng]).addTo(map);
         markers.push(marker);
         marker.location_id = id;
+        marker.name = name;
+        marker.date = date;
+        marker.month = month;
         marker.bindPopup(`
         <div>${name}</div><br>
         <button onClick="opeSaveLocationModal({coordinatesData: { lng: ${lng }, lat:${lat} }, name:'${name}', id: ${id}})">Módósít</button><br>
@@ -20,7 +23,6 @@ export function Markers({ api, map }) {
     }
 
     async function deleteMarker({name, id}) {
-
         let confirmAction = confirm(`Biztos törlöd a következőt? \n ${name}`);
         if (confirmAction) {
             try {
@@ -38,10 +40,23 @@ export function Markers({ api, map }) {
         }
     }
 
+    function filter(filters) {
+        markers.forEach((marker) => {
+            for (let index = 0; index < filters.length; index++) {
+                const filter = filters[index];
+                if(!filter(marker)) {
+                    map.removeLayer(marker);
+                }
+            }
+        })
+
+    }
+
     return {
         addMarker,
         closeMarker,
         deleteMarker,
+        filter,
     }
 
 }

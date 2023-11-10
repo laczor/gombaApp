@@ -1,4 +1,4 @@
-export function AddLocationsMenu({menuElement, openModal, map, exportData, importData}) {
+export function AddLocationsMenu({menuElement, openModal, map, exportData, importData, openFilterModal}) {
 
     let isDropdownOpen = false;
     const template = /*html*/`
@@ -20,6 +20,9 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
                 </a>
                 <a data-testid="custom-location" class="dropdown-item">
                 Kijelölöm a térképen
+                </a>
+                <a data-testid="add-filter" class="dropdown-item">
+                Szűrés
                 </a>
                 <a data-testid="export-data" class="dropdown-item">
                 Mentem az adataim
@@ -70,6 +73,7 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
         menuElement.querySelector("[data-testid='menu-trigger']").addEventListener('click', toggleDropdown);
         menuElement.querySelector("[data-testid='current-location']").addEventListener('click', openModalForCurrentLocation);
         menuElement.querySelector("[data-testid='custom-location']").addEventListener('click', openModalForCustomLocation);
+        menuElement.querySelector("[data-testid='add-filter']").addEventListener('click', openFilterModal);
         menuElement.querySelector("[data-testid='export-data']").addEventListener('click', exportData);
         menuElement.querySelector("[data-testid='import-data']").onclick = function() {
             importData()

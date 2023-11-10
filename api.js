@@ -58,7 +58,7 @@ export function Api(dbPromise){
             dbPromise.then((db) => {
             const tx = db.transaction('locations', 'readwrite');
             const store = tx.objectStore('locations');
-            store.add(location);
+            store.put(location);
             tx.oncomplete = () => {
                 resolve(location);
             };
