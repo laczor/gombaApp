@@ -52,11 +52,16 @@ export function Markers({ api, map }) {
 
     }
 
+    function getMarkers() {
+        return [...markers];
+    }
+
     return {
         addMarker,
         closeMarker,
         deleteMarker,
         filter,
+        getMarkers,
     }
 
 }

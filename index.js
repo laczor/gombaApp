@@ -16,7 +16,7 @@ map.markInitialLocation();
 const markers = Markers({ api, map })
 
 
-const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker });
+const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker, getMarkers: markers.getMarkers });
 saveLocationModal.render();
 const filterModal = FilterModal({ markers, filterModalElement: FILTER_MODAL })
 filterModal.render();

@@ -1,3 +1,5 @@
+# TodoList
+
 0. Store data in the indexedDb. [.]
 0.1 Add current location to the map with name. [.]
 0.2 Add location from map with name [.]
@@ -13,12 +15,10 @@
 5. Import everyting from a json file. [.]
 5.1. Hash the resources so it can be downloaded if   they are changed. [.]
 6. Publish it to an online space. [.]
-7.0. Add filters for name, date. [.]
-- Add Refresh button, update gps coordinates
-10. Make it offline friendly.
-
-7.1 Make it possibe to register mushroom names.
-7.2 Select a combobox different mushroom names
-7. Add different icons, as poc.
-8. Add a possibility to select icons for the different mushrooms.
-9. Inline third party ??
+7. Add filters for name, date. [.]
+8. Add Refresh button, update gps coordinates [.]
+9. Make it offline friendly. [Out of scope since it is complicated and not enough space on the phone]
+10. Make it possibe to register mushroom names with searchable select. [.]
+11. Select a combobox different mushroom names for filter.
+12. Add different icons for mushrooms.
+13. Add a possibility to select icons for the different mushrooms
