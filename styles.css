@@ -66,3 +66,22 @@ dialog[open] {
     height: 100%;
     width: 100%;
 }
+
+/* Marker */
+.marker_name{
+ font-size: 1.5rem;
+}
+
+.leaflet-popup-content {
+    width: auto !important;
+}
+.leaflet-popup-close-button{
+    font: inherit !important;
+    font-size: 1.5rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+}
+
+.buttons{
+    flex-wrap: nowrap;
+}

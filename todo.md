@@ -20,6 +20,6 @@
 9. Make it offline friendly. [Out of scope since it is complicated and not enough space on the phone]
 10. Make it possibe to register mushroom names with searchable select. [.]
 11. Select a combobox different mushroom names for filter. [.]
-12. Make marker more userfriendely (larger font, well placed buttons)
+12. Make marker more userfriendely larger font, well placed buttons[.]
 13. Add different icons for mushrooms.
 14. Add a possibility to select icons for the different mushrooms

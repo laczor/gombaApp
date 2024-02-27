@@ -9,9 +9,11 @@ export function Markers({ api, map }) {
         marker.date = date;
         marker.month = month;
         marker.bindPopup(`
-        <div>${name}</div><br>
-        <button onClick="opeSaveLocationModal({coordinatesData: { lng: ${lng }, lat:${lat} }, name:'${name}', id: ${id}})">Módósít</button><br>
-        <button onClick="deleteMarker({id: ${id}, 'name': '${name}'})">Törlés</button>
+        <div><strong class="marker_name">${name}</strong></div><br>
+        <div class="buttons">
+            <button class="button" onClick="opeSaveLocationModal({coordinatesData: { lng: ${lng }, lat:${lat} }, name:'${name}', id: ${id}})">Módósít</button><br>
+            <button class="button" onClick="deleteMarker({id: ${id}, 'name': '${name}'})">Törlés</button>
+        </div>
         `);
     }
 
