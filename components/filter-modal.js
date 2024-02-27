@@ -1,5 +1,5 @@
 export function FilterModal({ markers, filterModalElement}) {
-    let _name = '';
+    let _names = [];
     let _months = [];
 
     const template = /*html*/`
@@ -13,7 +13,9 @@ export function FilterModal({ markers, filterModalElement}) {
             <div class="field">
                 <label class="label">Gomba neve</label>
                 <div class="control">
-                    <input data-testid="filter-modal-name" class="input" type="text">
+                    <div class="select is-multiple" style="width: 100%;">
+                    <select data-testid="filter-modal-name" multiple style="width: 100%;"></select>
+                    </div>
                 </div>
             </div>
             <div class="field">
@@ -52,8 +54,9 @@ export function FilterModal({ markers, filterModalElement}) {
     }
 
     function openModal() {
-        getNameInput().value = _name;
         setMonthValues(_months);
+        updateFilterSelect();
+        setSelectedNames(_names);
         filterModalElement.showModal();
         filterModalElement.classList.add('is-active');
     }
@@ -68,18 +71,18 @@ export function FilterModal({ markers, filterModalElement}) {
     }
 
     function aplyFilters() {
-        const name = getNameInput().value;
+        const names = getSelectedNames();
         const months = Array.from(getMonthInput().selectedOptions).map(option => option.value);
-        _name = name;
+        _names = names;
         _months = months;
-        const filters = [filterForName(name), extractMonth([months])]
+        const filters = [filterForNames(names), extractMonth(months)]
         markers.filter(filters);
         filterModalElement.classList.remove('is-active');
         filterModalElement.close()
     }
 
-    function getNameInput() {
-        return filterModalElement.querySelector("[data-testid='filter-modal-name']");
+    function getSelectedNames() {
+        return [...filterModalElement.querySelector("[data-testid='filter-modal-name']").selectedOptions].map((option) => option.value.toLowerCase() );
     }
 
     function getMonthInput() {
@@ -93,21 +96,41 @@ export function FilterModal({ markers, filterModalElement}) {
         }
     }
 
+    function updateFilterSelect() {
+        const select = document.querySelector("[data-testid='filter-modal-name']");
+        const options = markers.getMarkers().map((marker) => {
+            const  option = document.createElement('option');
+
+            option.value = marker.name;
+            option.textContent = marker.name;
+            return option;
+        })
+        select.replaceChildren(...options);
+    }
+
+    function setSelectedNames(names) {
+        [...document.querySelector("[data-testid='filter-modal-name']").options].forEach((option) => {
+            if(names.includes(option.value.toLowerCase())) {
+                option.selected = true;
+            }
+        })
+    }
+
     return {
         render,
         openModal,
     }
 }
 
-function filterForName(name) {
+function filterForNames(names) {
     return (marker) => {
-        return marker.name.toLowerCase().includes(name.toLowerCase());
+        if(names.length === 0) return true;
+        return names.includes(marker.name.toLowerCase());
     }
 }
 
 function extractMonth(months) {
     return (marker) => {
-            const result = months.find((month) => String(month) === String(marker.month))
-            return result ? true : false;
+            return months.includes(String(marker.month));
     }
 }
