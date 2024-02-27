@@ -42,6 +42,7 @@ export function Markers({ api, map }) {
 
     function filter(filters) {
         markers.forEach((marker) => {
+            map.addLayer(marker);
             for (let index = 0; index < filters.length; index++) {
                 const filter = filters[index];
                 if(!filter(marker)) {

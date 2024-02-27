@@ -43,6 +43,7 @@ export function FilterModal({ markers, filterModalElement}) {
             </section>
             <footer class="modal-card-foot">
             <button data-testid="save-filter" class="button is-success">Mentés</button>
+            <button data-testid="clear" class="button">Mutasd mindet</button>
             <button data-testid="close" class="button">Bezárás</button>
             </footer>
         </div>
@@ -51,6 +52,9 @@ export function FilterModal({ markers, filterModalElement}) {
     function closeModal() {
         filterModalElement.classList.remove('is-active');
         filterModalElement.close()
+    }
+    function name(params) {
+
     }
 
     function openModal() {
@@ -64,6 +68,7 @@ export function FilterModal({ markers, filterModalElement}) {
     function render(){
         filterModalElement.innerHTML = template;
         filterModalElement.querySelector("[data-testid='save-filter']").addEventListener('click', aplyFilters);
+        filterModalElement.querySelector("[data-testid='clear']").addEventListener('click', clearData);
         filterModalElement.querySelectorAll("[data-testid='close']").forEach((element) => {
             element.addEventListener('click', closeModal);
         })
@@ -82,11 +87,23 @@ export function FilterModal({ markers, filterModalElement}) {
     }
 
     function getSelectedNames() {
-        return [...filterModalElement.querySelector("[data-testid='filter-modal-name']").selectedOptions].map((option) => option.value.toLowerCase() );
+        return [...getMushroomNameInput().selectedOptions].map((option) => option.value.toLowerCase() );
+    }
+
+    function getMushroomNameInput() {
+        return filterModalElement.querySelector("[data-testid='filter-modal-name']");
     }
 
     function getMonthInput() {
         return filterModalElement.querySelector("[data-testid='filter-modal-month']");
+    }
+
+    function clearData() {
+        const mushroomNameInput = getMushroomNameInput();
+        const monthInputInput = getMonthInput();
+        [ mushroomNameInput, monthInputInput ].map((input) => {
+            [...input.options].forEach((option) => { option.selected = false; })
+        })
     }
 
     function setMonthValues(selectedValues) {
@@ -97,7 +114,7 @@ export function FilterModal({ markers, filterModalElement}) {
     }
 
     function updateFilterSelect() {
-        const select = document.querySelector("[data-testid='filter-modal-name']");
+        const select = getMushroomNameInput()
         const options = markers.getMarkers().map((marker) => {
             const  option = document.createElement('option');
 
@@ -109,7 +126,7 @@ export function FilterModal({ markers, filterModalElement}) {
     }
 
     function setSelectedNames(names) {
-        [...document.querySelector("[data-testid='filter-modal-name']").options].forEach((option) => {
+        [...getMushroomNameInput().options].forEach((option) => {
             if(names.includes(option.value.toLowerCase())) {
                 option.selected = true;
             }
@@ -131,6 +148,7 @@ function filterForNames(names) {
 
 function extractMonth(months) {
     return (marker) => {
+            if(months.length === 0) return true;
             return months.includes(String(marker.month));
     }
 }
