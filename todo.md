@@ -21,5 +21,14 @@
 10. Make it possibe to register mushroom names with searchable select. [.]
 11. Select a combobox different mushroom names for filter. [.]
 12. Make marker more userfriendely larger font, well placed buttons[.]
-13. Add different icons for mushrooms.
-14. Add a possibility to select icons for the different mushrooms
+13. Add a possibility to select icons for the different mushrooms
+14. Add different icons for mushrooms.
+    - Make a script which will create a const array which will contain the available pictures
+    - Create an icon picker like a list of items like asset picker (mobile friendly)
+    - When i want to modify the mushroom prop it will autoselect the image, maybe that will be the first element.
+15. Add description field
+
+[Image resizer](https://imresizer.com/download)
+[SVG converter](https://www.freeconvert.com/png-to-svg/download)
+[Background remover](https://pixlr.com/express/)
+[Crop image](https://www.iloveimg.com/crop-image/crop-png)

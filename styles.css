@@ -72,6 +72,15 @@ dialog[open] {
  font-size: 1.5rem;
 }
 
+.marker_image{
+    display: flex;
+    justify-content: center;
+}
+
+.marker_image img {
+   width: 50%;
+}
+
 .leaflet-popup-content {
     width: auto !important;
 }

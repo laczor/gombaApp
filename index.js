@@ -9,11 +9,12 @@ import { AddLocationsMenu } from 'add-locations-menu'
 import { FilterModal } from 'filter-modal';
 import { exportData } from 'export'
 import { importData } from 'import'
+import { Icon } from 'icon'
 
 const api = Api(dbPromise);
 const { map } = Map(L);
 map.markInitialLocation();
-const markers = Markers({ api, map })
+const markers = Markers({ api, map, Icon })
 
 
 const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker, getMarkers: markers.getMarkers });

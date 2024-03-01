@@ -1,15 +1,20 @@
-export function Markers({ api, map }) {
+export function Markers({ api, map, Icon }) {
     let markers = [];
 
-    function addMarker({lat,lng, name, id, date, month}) {
-        var marker = L.marker([lat, lng]).addTo(map);
+    function addMarker({lat,lng, name, id, date, month, icon}) {
+        var marker = L.marker([lat, lng], { icon: Icon(icon)}).addTo(map);
         markers.push(marker);
         marker.location_id = id;
         marker.name = name;
+        marker.icon = Icon(icon)
         marker.date = date;
         marker.month = month;
+        console.log(marker.icon)
         marker.bindPopup(`
         <div><strong class="marker_name">${name}</strong></div><br>
+        <figure class="marker_image image">
+         <img src="${marker.icon.options.iconUrl}" >
+        </figure>
         <div class="buttons">
             <button class="button" onClick="opeSaveLocationModal({coordinatesData: { lng: ${lng }, lat:${lat} }, name:'${name}', id: ${id}})">Módósít</button><br>
             <button class="button" onClick="deleteMarker({id: ${id}, 'name': '${name}'})">Törlés</button>
