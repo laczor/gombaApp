@@ -1,0 +1,1 @@
+export const mushrooms = ["default.png","faful.png","geva.png","gyapjas-tinta.png","kucsma.png","majusi-pereszke.png","ozlab.png","pofeteg.png","rizike.png","roka.png","teli-fuloke.png","toke.png","varganya.png"];

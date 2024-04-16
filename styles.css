@@ -94,3 +94,18 @@ dialog[open] {
 .buttons{
     flex-wrap: nowrap;
 }
+
+.mushroom-picker{
+ display: grid;
+ grid-template-columns: repeat(4, 1fr);
+}
+
+.mushroom-picker img.selected{
+    border-radius: 10px;
+    border: 2px solid grey;
+    box-shadow: -1px -1px 22px -10px #000050;
+}
+
+.mushroom-picker img{
+    height: inherit;
+}

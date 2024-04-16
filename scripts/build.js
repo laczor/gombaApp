@@ -4,9 +4,12 @@ import { copyAndRenameFiles } from './copy-and-rename-files.js';
 import { replaceValuesInFile } from './replace-value-in-file.js';
 
 import path from 'path';
+import { generateMushroomsFile } from './gather-mushroom-names.js';
 
 const OUT_DIR = 'public'
 const currentPath = process.cwd();
+
+await generateMushroomsFile(path.join(currentPath, 'assets'));
 
 const {filesToHash, filesToCopy} = searchFiles(currentPath, ['scripts', '.git', OUT_DIR]);
 

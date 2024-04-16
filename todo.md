@@ -22,11 +22,16 @@
 11. Select a combobox different mushroom names for filter. [.]
 12. Make marker more userfriendely larger font, well placed buttons[.]
 13. Add a possibility to select icons for the different mushrooms
-14. Add different icons for mushrooms.
-    - Make a script which will create a const array which will contain the available pictures
-    - Create an icon picker like a list of items like asset picker (mobile friendly)
-    - When i want to modify the mushroom prop it will autoselect the image, maybe that will be the first element.
+    - Add ghost mushroom [.]
+    - Dynamically read the available mushrooms from the asssets [.]
+    - Render the mushroms in the picker [.]
+    - Store the selected icon [.]
+    - Remember the icon selection when modifying [.]
+    - Add a fallback icon if there is no icon defined. [.]
+    - When i select an existing mushroom select the corresponding image
+14. Make sure that all of the mushrooms with the same name has the same icon.
 15. Add description field
+16. Add offline capability, to save areas in the map.( Service workers)
 
 [Image resizer](https://imresizer.com/download)
 [SVG converter](https://www.freeconvert.com/png-to-svg/download)

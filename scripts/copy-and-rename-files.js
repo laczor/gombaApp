@@ -8,11 +8,8 @@ export function copyAndRenameFiles({ files, outDir, rootPath}) {
   if (!fs.existsSync(distDir)) {
     fs.mkdirSync(distDir);
   } else {
-    // Clear existing files in 'dist' directory
-    fs.readdirSync(distDir).forEach((file) => {
-      const filePath = path.join(distDir, file);
-      fs.unlinkSync(filePath);
-    });
+    fs.rmSync(distDir, { recursive: true })
+    fs.mkdirSync(distDir);
   }
 
   // Copy and rename files

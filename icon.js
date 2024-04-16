@@ -24,6 +24,7 @@ function getIconData(name) {
             iconSize = [40, 40];
             break;
         default:
+            iconSize = [30, 30];
             break;
     }
 
