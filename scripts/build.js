@@ -15,7 +15,7 @@ const {filesToHash, filesToCopy} = searchFiles(currentPath, ['scripts', '.git', 
 
 function hashedName(fileName) {
 const [name, ...rest] = fileName.split('.');
-return `${name}-${generateFileHash(fileName)}-.${rest.join()}`
+return `${name}-${generateFileHash(fileName)}.${rest.join()}`
 
 }
 const hashedFileNames = filesToHash.map((fileName) => [fileName, hashedName(fileName)]);

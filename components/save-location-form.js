@@ -1,7 +1,6 @@
 import { Location } from "domain";
-import { mushrooms } from "mushrooms";
 
-export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, getMarkers}) {
+export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, getMarkers, mushrooms}) {
     let _coordinates;
     let _id;
     let before_close;

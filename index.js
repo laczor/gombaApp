@@ -3,6 +3,7 @@ import { Api } from 'api';
 import { Map } from 'map';
 import { isLocation } from 'domain';
 import { Markers } from 'markers';
+import { mushrooms } from 'mushrooms';
 
 import { SaveLocationModal } from 'save-location-form'
 import { AddLocationsMenu } from 'add-locations-menu'
@@ -17,7 +18,7 @@ map.markInitialLocation();
 const markers = Markers({ api, map, Icon })
 
 
-const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker, getMarkers: markers.getMarkers });
+const saveLocationModal = SaveLocationModal({ api, modalElement: ADD_CURRENT_LOCATION_MODAL, addMarker: markers.addMarker, closeMarker: markers.closeMarker, getMarkers: markers.getMarkers, mushrooms });
 saveLocationModal.render();
 const filterModal = FilterModal({ markers, filterModalElement: FILTER_MODAL })
 filterModal.render();

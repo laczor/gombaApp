@@ -21,13 +21,7 @@ export async function generateMushroomsFile(currentPath) {
     const mushroomsContent = `export const mushrooms = ${JSON.stringify(names)};\n`;
 
     const mushroomsFilePath = path.join(currentPath, '..', 'mushrooms.js');
-    fs.writeFile(mushroomsFilePath, mushroomsContent, err => {
-      if (err) {
-        console.error('Error writing mushrooms.js file:', err);
-      } else {
-        console.log('mushrooms.js file has been created successfully.');
-      }
-    });
+    fs.writeFileSync(mushroomsFilePath, mushroomsContent);
   } catch (error) {
     console.error('Error gathering file names:', error);
   }
