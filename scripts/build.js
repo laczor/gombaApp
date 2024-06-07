@@ -6,7 +6,7 @@ import { replaceValuesInFile } from './replace-value-in-file.js';
 import path from 'path';
 import { generateMushroomsFile } from './gather-mushroom-names.js';
 
-const OUT_DIR = 'public'
+const OUT_DIR = 'docs'
 const currentPath = process.cwd();
 
 await generateMushroomsFile(path.join(currentPath, 'assets'));
