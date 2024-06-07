@@ -37,5 +37,6 @@ window.deleteMarker = markers.deleteMarker;
 window.opeSaveLocationModal = saveLocationModal.openModal;
 
 api.getAllLocations().then((locations) => {
-        locations.map(markers.addMarker);
+        const locs = locations.filter((loc) => isLocation(loc) === true ? true : false);
+        locs.map(markers.addMarker);
 });

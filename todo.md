@@ -29,6 +29,7 @@
     - Remember the icon selection when modifying [.]
     - Add a fallback icon if there is no icon defined. [.]
     - When i select an existing mushroom select the corresponding image
+    - Make sure that the modal is detached or can't cause problem, since i can see it when i move or zoom in the map.
 14. Make sure that all of the mushrooms with the same name has the same icon.
 15. Add description field
 16. Add offline capability, to save areas in the map.( Service workers)
@@ -37,3 +38,10 @@
 [SVG converter](https://www.freeconvert.com/png-to-svg/download)
 [Background remover](https://pixlr.com/express/)
 [Crop image](https://www.iloveimg.com/crop-image/crop-png)
+
+
+HOTIFXES:
+- Validate if for the mushroom to save we have all of the props [OK]
+- When we read out from the database handle errors [OK]
+- When we save handle errors [OK]
+- Solve the modal problem, it should not be visible when the map is moved

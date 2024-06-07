@@ -54,8 +54,19 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
 
     function openModalForCurrentLocation() {
         toggleDropdown();
-        let { _lastCenter } = map.locate();
-        openModal({ coordinatesData: _lastCenter});
+        map.locate();
+        // Event listener for location found
+        map.on('locationfound', function(e) {
+            var lat = e.latitude;
+            var lng = e.longitude;
+            openModal({ coordinatesData: {lat, lng}});
+        });
+
+        // Event listener for location error
+        map.on('locationerror', function(e) {
+            alert("Location access denied.");
+        });
+
     }
 
     function removeCustomLocationOnClick() {

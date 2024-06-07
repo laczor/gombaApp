@@ -1,4 +1,4 @@
-import { Location } from "domain";
+import { Location, isLocation } from "domain";
 
 export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, getMarkers, mushrooms}) {
     let _coordinates;
@@ -43,6 +43,7 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
         const location = Location({ name, ..._coordinates });
         if(_id) location.id = _id;
         if(icon) location.icon = icon;
+        if(location.lat === undefined | location.lat == null) alert('Location lat has not been added')
         api.saveLocation(location).then((location) => {
             addMarker(location);
             closeMarker(location.id)
@@ -89,7 +90,6 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
                 el.classList.add('selected');
             }
         })
-        console.log(event.target.name);
     }
 
     function createMushroomElement(path) {
