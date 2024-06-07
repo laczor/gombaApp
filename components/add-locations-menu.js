@@ -33,6 +33,9 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
                 <a data-testid="refresh-page" onclick='location.reload()' class="dropdown-item">
                 Újratöltöm az oldalt
                 </a>
+                <a class="dropdown-item">
+                Verzio 1.0.1
+                </a>
             </div>
         </div>
     </div>

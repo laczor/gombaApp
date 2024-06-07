@@ -44,4 +44,5 @@ HOTIFXES:
 - Validate if for the mushroom to save we have all of the props [OK]
 - When we read out from the database handle errors [OK]
 - When we save handle errors [OK]
+- Add versioning [OK]
 - Solve the modal problem, it should not be visible when the map is moved
