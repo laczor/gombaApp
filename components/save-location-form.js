@@ -53,7 +53,9 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
     }
 
     function openModal({coordinatesData, before_closeFn, name = '', id = undefined}) {
-        modalElement.querySelector('.add-current-location-modal_input').value = name;
+        const input = modalElement.querySelector('.add-current-location-modal_input')
+        input.value = name;
+        autoSetActiveMushrooms(input);
         _coordinates = coordinatesData;
         _id = id,
         before_close = before_closeFn;
@@ -70,6 +72,18 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
             return option;
         });
         mushroomDataList.replaceChildren(...optionNodes);
+    }
+
+    function autoSetActiveMushrooms(mushroomInput) {
+        const mushroomDataList = document.querySelector('#gombak');
+        mushroomInput.addEventListener('input', (event) => {
+            const value = event.target.value;
+            const selectedOption = Array.from(mushroomDataList.options).find(option => option.value === value);
+            if (selectedOption) {
+                const marker = getMarkers().find(marker => marker.name === value);
+                setActiveMushroom({ target: { name: marker.icon_name } } );
+            }
+        });
     }
 
     function appendMushrooms(params) {

@@ -10,6 +10,7 @@ export function Markers({ api, map, Icon }) {
         marker.name = name;
         marker.setIcon(markerIcon);
         marker.icon = markerIcon;
+        marker.icon_name = icon;
         marker.date = date;
         marker.month = month;
         marker.bindPopup(`
