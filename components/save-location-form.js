@@ -85,14 +85,19 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
 
     function autoSetActiveMushrooms(mushroomInput) {
         const mushroomDataList = document.querySelector('#gombak');
+        setActiveMushroomByMarkerName(mushroomInput.value, mushroomDataList)
         mushroomInput.addEventListener('input', (event) => {
-            const value = event.target.value;
-            const selectedOption = Array.from(mushroomDataList.options).find(option => option.value === value);
-            if (selectedOption) {
-                const marker = getMarkers().find(marker => marker.name === value);
-                setActiveMushroom({ target: { name: marker.icon_name } } );
-            }
+            const name = event.target.value;
+            setActiveMushroomByMarkerName(name, mushroomDataList)
         });
+    }
+
+    function setActiveMushroomByMarkerName(name, list) {
+        const selectedOption = Array.from(list.options).find(option => option.value === name);
+        if (selectedOption) {
+            const marker = getMarkers().find(marker => marker.name === name);
+            setActiveMushroom({ target: { name: marker.icon_name } } );
+        }
     }
 
     function appendMushrooms(params) {

@@ -46,3 +46,4 @@ HOTIFXES:
 - When we save handle errors [OK]
 - Add versioning [OK]
 - Solve the modal problem, it should not be visible when the map is moved [Not experienced]
+- When editing the modal, the mushroom's image should be selected. [1.0.3]
