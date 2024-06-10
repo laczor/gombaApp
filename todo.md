@@ -31,7 +31,7 @@
     - When i select an existing mushroom select the corresponding image [.]
     - Make sure that the modal is detached or can't cause problem, since i can see it when i move or zoom in the map. [Not reproducable]
 14. Make sure that all of the mushrooms with the same name has the same icon. [.]
-15. Add description field
+15. Add description field [1.0.2]
 16. Add offline capability, to save areas in the map.( Service workers)
 
 [Image resizer](https://imresizer.com/download)

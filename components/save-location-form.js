@@ -1,4 +1,4 @@
-import { Location, isLocation } from "domain";
+import { Location } from "domain";
 
 export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, getMarkers, mushrooms}) {
     let _coordinates;
@@ -17,9 +17,15 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
             <div class="field">
                 <label class="label">Gomba neve</label>
                 <div class="control">
-                <input class="input add-current-location-modal_input" type="text" list="gombak">
-                <datalist id="gombak">
-                </datalist>
+                    <input class="input add-current-location-modal_input" type="text" list="gombak">
+                    <datalist id="gombak">
+                    </datalist>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Jegyzet</label>
+                <div class="control">
+                    <textarea class="input add-note-modal_input"></textarea>
                 </div>
             </div>
             <div class="field">
@@ -40,7 +46,8 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
 
     function saveLocation() {
         let name = modalElement.querySelector('.add-current-location-modal_input').value
-        const location = Location({ name, ..._coordinates });
+        let note = modalElement.querySelector('.add-note-modal_input').value
+        const location = Location({ name, note, ..._coordinates });
         if(_id) location.id = _id;
         if(icon) location.icon = icon;
         if(location.lat === undefined | location.lat == null) alert('Location lat has not been added')
@@ -52,8 +59,10 @@ export function SaveLocationModal({ api, modalElement, addMarker, closeMarker, g
 
     }
 
-    function openModal({coordinatesData, before_closeFn, name = '', id = undefined}) {
+    function openModal({coordinatesData, before_closeFn, name = '', id = undefined, note = ''}) {
         const input = modalElement.querySelector('.add-current-location-modal_input')
+        const noteInput = modalElement.querySelector('.add-note-modal_input')
+        noteInput.value = note;
         input.value = name;
         autoSetActiveMushrooms(input);
         _coordinates = coordinatesData;
