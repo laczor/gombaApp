@@ -10,7 +10,7 @@ export function Map(L) {
 
     function markInitialLocation() {
         var marker = L.marker([51.5, -0.09]).addTo(map);
-        map.locate({setView: true, enableHighAccuracy: true });
+        map.locate({setView: true, enableHighAccuracy: true, watch: true });
 
         function onLocationFound(e) {
             L.circle(e.latlng, 3).addTo(map);

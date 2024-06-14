@@ -32,7 +32,17 @@
     - Make sure that the modal is detached or can't cause problem, since i can see it when i move or zoom in the map. [Not reproducable]
 14. Make sure that all of the mushrooms with the same name has the same icon. [.]
 15. Add description field [1.0.2]
-16. Add offline capability, to save areas in the map.( Service workers)
+16. Add update gps current position. [1.0.4]
+17. Add offline capability, to save areas in the map.( Service workers)
+    - We should have a big rectangle and we can move the map around and change the zoom level
+    - Store the rectangle positions and zoom level in the indexedDB/Local storage
+    - I want to review and change the offline rectangle position
+    - I want to go to a summary page where i will get information how many pictures and approximately how many MB's will it cost
+    - I want to download the cache and show the progress as well.
+    - Create a success page when it is ready and store the stored urls, it's size, the date it has been modified
+    - Set a maximum zoom level
+    - Make it possible to edit a stored rectangle, delete it or add a new one
+    - List / Show the stored maps for offline views.
 
 [Image resizer](https://imresizer.com/download)
 [SVG converter](https://www.freeconvert.com/png-to-svg/download)

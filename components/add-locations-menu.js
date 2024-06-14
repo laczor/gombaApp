@@ -34,7 +34,7 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
                 Újratöltöm az oldalt
                 </a>
                 <a class="dropdown-item">
-                Verzio 1.0.3
+                Verzio 1.0.4
                 </a>
             </div>
         </div>
