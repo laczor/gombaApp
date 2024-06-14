@@ -1,35 +1,43 @@
 
 export function Map(L) {
-    let map = L.map('map').setView([32.505, -0.09], 13);
+    let map = L.map('map');
+    let currentPosition;
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    function locateAndMarkCurrentPosition() {
+        locatePosition(markCurrentPosition)
+    }
 
-    function markInitialLocation() {
-        var marker = L.marker([51.5, -0.09]).addTo(map);
-        map.locate({setView: true, enableHighAccuracy: true, watch: true });
+    function locatePosition(cb) {
+        map.locate({ setView: true, enableHighAccuracy: true });
 
         function onLocationFound(e) {
-            L.circle(e.latlng, 3).addTo(map);
+            map.setView(e.latlng, 17); // Set zoom level 15 as an example
+            if(cb) {
+                cb(e)
+            }
         }
         map.on('locationfound', onLocationFound);
-
-        return {
-            marker,
-            onLocationFound,
-
-        }
     }
+
+    function markCurrentPosition(e) {
+        if(currentPosition) { map.removeLayer(currentPosition)}
+        currentPosition =  L.circle(e.latlng, 3).addTo(map);
+    }
+
     function AddMarker({lat, lng}) {
         L.marker([lat, lng]).addTo(map);
 
     }
 
     map.AddMarker = AddMarker;
-    map.markInitialLocation = markInitialLocation;
+    map.locatePosition = locatePosition;
+    map.markCurrentPosition = markCurrentPosition;
+    map.locateAndMarkCurrentPosition = locateAndMarkCurrentPosition;
 
     return {
         map,

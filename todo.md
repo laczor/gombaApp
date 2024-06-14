@@ -33,7 +33,7 @@
 14. Make sure that all of the mushrooms with the same name has the same icon. [.]
 15. Add description field [1.0.2]
 16. Add update gps current position. [1.0.4]
-17. Add offline capability, to save areas in the map.( Service workers)
+17. Add offline capability, to save areas in the map.(Service workers)
     - We should have a big rectangle and we can move the map around and change the zoom level
     - Store the rectangle positions and zoom level in the indexedDB/Local storage
     - I want to review and change the offline rectangle position
@@ -57,3 +57,5 @@ HOTIFXES:
 - Add versioning [OK]
 - Solve the modal problem, it should not be visible when the map is moved [Not experienced]
 - When editing the modal, the mushroom's image should be selected. [1.0.3]
+- Add pisztric, korall, pirulo galoca
+- Can't delete a mushroom immediately after it was created (Since we don't have an id yet in the indexedDB)

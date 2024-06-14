@@ -16,25 +16,28 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
                 <a data-testid="current-location" class="dropdown-item">
-                Mostani helyzet
+                    Mostani helyzet
                 </a>
                 <a data-testid="custom-location" class="dropdown-item">
-                Kijelölöm a térképen
+                    Kijelölöm a térképen
                 </a>
                 <a data-testid="add-filter" class="dropdown-item">
-                Szűrés
+                    Szűrés
                 </a>
                 <a data-testid="export-data" class="dropdown-item">
-                Mentem az adataim
+                    Mentem az adataim
                 </a>
                 <a data-testid="import-data" class="dropdown-item">
-                Betöltöm az adataim
+                    Betöltöm az adataim
                 </a>
                 <a data-testid="refresh-page" onclick='location.reload()' class="dropdown-item">
-                Újratöltöm az oldalt
+                    Újratöltöm az oldalt
+                </a>
+                <a data-testid="refresh-location" class="dropdown-item">
+                    Frissitsd a helyzetem
                 </a>
                 <a class="dropdown-item">
-                Verzio 1.0.4
+                    Verzio 1.0.4
                 </a>
             </div>
         </div>
@@ -57,19 +60,11 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
 
     function openModalForCurrentLocation() {
         toggleDropdown();
-        map.locate();
-        // Event listener for location found
-        map.on('locationfound', function(e) {
+        map.locatePosition((e)=> {
             var lat = e.latitude;
             var lng = e.longitude;
             openModal({ coordinatesData: {lat, lng}});
-        });
-
-        // Event listener for location error
-        map.on('locationerror', function(e) {
-            alert("Location access denied.");
-        });
-
+        })
     }
 
     function removeCustomLocationOnClick() {
@@ -90,6 +85,7 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
         menuElement.querySelector("[data-testid='menu-trigger']").addEventListener('click', toggleDropdown);
         menuElement.querySelector("[data-testid='current-location']").addEventListener('click', openModalForCurrentLocation);
         menuElement.querySelector("[data-testid='custom-location']").addEventListener('click', openModalForCustomLocation);
+        menuElement.querySelector("[data-testid='refresh-location']").addEventListener('click',  map.locateAndMarkCurrentPosition);
         menuElement.querySelector("[data-testid='add-filter']").addEventListener('click', openFilterModal);
         menuElement.querySelector("[data-testid='export-data']").addEventListener('click', exportData);
         menuElement.querySelector("[data-testid='import-data']").onclick = function() {

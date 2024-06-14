@@ -14,7 +14,7 @@ import { Icon } from 'icon'
 
 const api = Api(dbPromise);
 const { map } = Map(L);
-map.markInitialLocation();
+map.locateAndMarkCurrentPosition();
 const markers = Markers({ api, map, Icon })
 
 
