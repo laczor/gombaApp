@@ -1,3 +1,7 @@
+function generateUUID() {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
+
 export function Location({
     date = Date.now(),
     month = new Date(Date.now()).getMonth() + 1,
@@ -6,6 +10,18 @@ export function Location({
     return {
         date,
         month,
+        ...rest
+    };
+};
+
+export function OfflineMap({
+    id = generateUUID(),
+    date = Date.now(),
+    ...rest
+}){
+    return {
+        id,
+        date,
         ...rest
     };
 };
@@ -20,3 +36,4 @@ export function isLocation(location){
     });
     return errors.length === 0 ? true : errors;
 }
+

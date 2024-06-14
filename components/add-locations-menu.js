@@ -1,4 +1,4 @@
-export function AddLocationsMenu({menuElement, openModal, map, exportData, importData, openFilterModal}) {
+export function AddLocationsMenu({menuElement, openModal, map, exportData, importData, openFilterModal, offlineMaps}) {
 
     let isDropdownOpen = false;
     const template = /*html*/`
@@ -35,6 +35,15 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
                 </a>
                 <a data-testid="refresh-location" class="dropdown-item">
                     Frissitsd a helyzetem
+                </a>
+                <a data-testid="offline-maps-show" class="dropdown-item">
+                    Offline terkepek megtekintese
+                </a>
+                <a data-testid="offline-maps-hide" class="dropdown-item">
+                    Offline terkepek elrejtese
+                </a>
+                <a data-testid="offline-maps-add" class="dropdown-item">
+                    Offline terkep hozzaadasa
                 </a>
                 <a class="dropdown-item">
                     Verzio 1.0.4
@@ -80,12 +89,30 @@ export function AddLocationsMenu({menuElement, openModal, map, exportData, impor
         toggleDropdown();
     }
 
+    function drawOfflineMap() {
+        toggleDropdown()
+        offlineMaps.drawOfflineMap()
+    }
+
+    function showOfflineMaps() {
+        toggleDropdown()
+        offlineMaps.drawOfflineMap()
+    }
+
+    function hideOfflineMaps() {
+        toggleDropdown()
+        offlineMaps.drawOfflineMap()
+    }
+
     function render(){
         menuElement.innerHTML = template;
         menuElement.querySelector("[data-testid='menu-trigger']").addEventListener('click', toggleDropdown);
         menuElement.querySelector("[data-testid='current-location']").addEventListener('click', openModalForCurrentLocation);
         menuElement.querySelector("[data-testid='custom-location']").addEventListener('click', openModalForCustomLocation);
         menuElement.querySelector("[data-testid='refresh-location']").addEventListener('click',  map.locateAndMarkCurrentPosition);
+        menuElement.querySelector("[data-testid='offline-maps-show']").addEventListener('click',  showOfflineMaps);
+        menuElement.querySelector("[data-testid='offline-maps-hide']").addEventListener('click',  hideOfflineMaps);
+        menuElement.querySelector("[data-testid='offline-maps-add']").addEventListener('click',  drawOfflineMap);
         menuElement.querySelector("[data-testid='add-filter']").addEventListener('click', openFilterModal);
         menuElement.querySelector("[data-testid='export-data']").addEventListener('click', exportData);
         menuElement.querySelector("[data-testid='import-data']").onclick = function() {

@@ -34,15 +34,16 @@
 15. Add description field [1.0.2]
 16. Add update gps current position. [1.0.4]
 17. Add offline capability, to save areas in the map.(Service workers)
-    - We should have a big rectangle and we can move the map around and change the zoom level
+    - Have a way to select offline map [-]
+    - When i click show rectangles i want to see the stored rectangles
+    - When i click to hide rectangles i want to hide the rectangles
     - Store the rectangle positions and zoom level in the indexedDB/Local storage
-    - I want to review and change the offline rectangle position
-    - I want to go to a summary page where i will get information how many pictures and approximately how many MB's will it cost
-    - I want to download the cache and show the progress as well.
+    - At the popup how many pictures and approximately how many MB's will it cost
+    - I want to download the cache from the popup and show the progress as well in a way that it is not making the openstreetmaps fail.
     - Create a success page when it is ready and store the stored urls, it's size, the date it has been modified
     - Set a maximum zoom level
-    - Make it possible to edit a stored rectangle, delete it or add a new one
-    - List / Show the stored maps for offline views.
+    - When a map is deleted i want to remove the stored images from the cache related to that
+18. Cache everthing so with no internetconnection it could work.
 
 [Image resizer](https://imresizer.com/download)
 [SVG converter](https://www.freeconvert.com/png-to-svg/download)

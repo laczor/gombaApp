@@ -1,105 +1,44 @@
-export function Api(dbPromise){
+import { LOCATIONS_STORE, OFFLINE_MAPS_STORE } from "db";
+import { IDBHelper } from "idbHelper";
+
+
+export function Api({ locationsDbPromise, offlineMapsDbPromise, }){
+    let LocationsIDB = IDBHelper(locationsDbPromise);
+    let OfflineMapsIDB = IDBHelper(offlineMapsDbPromise);
 
     function getLocationsForMonth(month) {
         return dbPromise.then((db) => {
-            const tx = db.transaction('locations', 'readonly');
-            const store = tx.objectStore('locations');
-
-            // Get the start and end dates for the month
-            const startDate = new Date(month.getFullYear(), month.getMonth(), 1);
-            const endDate = new Date(month.getFullYear(), month.getMonth() + 1, 0);
-
-            // Define a range for the dates in the month
-            const range = IDBKeyRange.bound(startDate, endDate);
-
-            // Create an index on the date field and use it to retrieve the data for the month
-            const index = store.index('date');
-            const request = index.getAll(range);
-
-            return new Promise((resolve, reject) => {
-                request.onerror = () => {
-                    reject(request.error);
-                };
-
-                request.onsuccess = () => {
-                    resolve(request.result);
-                };
-            });
+          const startDate = new Date(month.getFullYear(), month.getMonth(), 1);
+          const endDate = new Date(month.getFullYear(), month.getMonth() + 1, 0);
+          const keyRange = IDBKeyRange.bound(startDate, endDate);
+          return LocationsIDB.getByIndex(LOCATIONS_STORE, 'date', keyRange);
         });
     }
 
     function getLocationsByName(name) {
-
-        return dbPromise.then((db) => {
-            const tx = db.transaction('locations', 'readonly');
-            const store = tx.objectStore('locations');
-
-            // Define a range for the name
-            const range = IDBKeyRange.only(name);
-
-            // Create an index on the name field and use it to retrieve the data
-            const index = store.index('name');
-            const request = index.getAll(range);
-
-            return new Promise((resolve, reject) => {
-            request.onerror = () => {
-                reject(request.error);
-            };
-
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            });
-        });
+      const keyRange = IDBKeyRange.only(name);
+      return LocationsIDB.getByIndex(LOCATIONS_STORE, 'name', keyRange);
     }
 
     function saveLocation(location) {
-        return new Promise((resolve, reject) => {
-            dbPromise.then((db) => {
-            const tx = db.transaction('locations', 'readwrite');
-            const store = tx.objectStore('locations');
-            store.put(location);
-            tx.oncomplete = () => {
-                resolve(location);
-            };
-            tx.onerror = () => {
-                reject('Error saving location to indexedDB');
-            };
-            });
-        });
+      return LocationsIDB.saveObject(LOCATIONS_STORE, location)
     }
 
     function deleteLocation(id) {
-        return new Promise((resolve, reject) => {
-          dbPromise.then((db) => {
-            const tx = db.transaction('locations', 'readwrite');
-            const store = tx.objectStore('locations');
-            const request = store.delete(id);
-            request.onsuccess = () => {
-              resolve();
-            };
-            request.onerror = () => {
-              reject(request.error);
-            };
-          });
-        });
-      }
+      return LocationsIDB.deleteObject(LOCATIONS_STORE, id)
+    }
 
-      function getAllLocations() {
-        return new Promise((resolve, reject) => {
-          dbPromise.then((db) => {
-            const tx = db.transaction('locations', 'readonly');
-            const store = tx.objectStore('locations');
-            const request = store.getAll();
-            request.onsuccess = () => {
-              resolve(request.result);
-            };
-            request.onerror = () => {
-              reject(request.error);
-            };
-          });
-        });
-      }
+    function getAllLocations() {
+      return LocationsIDB.getAll(LOCATIONS_STORE)
+    }
+
+    function saveOfflineMap(map) {
+      return OfflineMapsIDB.saveObject(OFFLINE_MAPS_STORE, map)
+    }
+
+    function deleteOfflineMap(id) {
+      return OfflineMapsIDB.deleteObject(OFFLINE_MAPS_STORE, id)
+    }
 
     return {
         saveLocation,
@@ -107,6 +46,8 @@ export function Api(dbPromise){
         getAllLocations,
         getLocationsForMonth,
         getLocationsByName,
+        saveOfflineMap,
+        deleteOfflineMap
     };
 
 };
